@@ -1,11 +1,32 @@
-#Project will allow you to put your steam link, would then compare your profile with another profile using cssStats.gg
+import os
+import requests
+from dotenv import load_dotenv
 
-#https://csstats.gg/
+load_dotenv()
+API_KEY = os.getenv("API_KEY")
 
-#user would have to put their user profile as a "sign in"
+if not API_KEY:
+    print("Error: API_KEY is not working")
+    exit()
 
-#thgen submit new profile to cehck
+platform = "steam"
+platformUserIdentifier = "76561198333152420"  
+
+# Construct the API endpoint
+url = f"https://public-api.tracker.gg/v2/csgo/standard/profile/{platform}/{platformUserIdentifier}"
 
 
-userProfile = input("Enter User Steam Account")
-print("User is " + userProfile )
+headers = {
+    "TRN-Api-Key": API_KEY
+}
+
+#GET request
+response = requests.get(url, headers=headers)
+
+# Check request is successful
+if response.status_code == 200:
+    data = response.json()
+    print("API Response:", data)
+else:
+    print(f"Error: {response.status_code}")
+    print("Response text:", response.text)
