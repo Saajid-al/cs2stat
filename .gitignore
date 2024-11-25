@@ -1,0 +1,8 @@
+# Ignore environment files
+.env
+
+# Other files or folders to ignore (examples)
+node_modules/
+.DS_Store
+dist/
+venv/
